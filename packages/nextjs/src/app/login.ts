@@ -3,7 +3,6 @@
 import { FlowType, LoginFlow } from "@ory/client-fetch"
 
 import { initOverrides, QueryParams } from "../types"
-import { guessPotentiallyProxiedOrySdkUrl } from "../utils/sdk"
 import { serverSideFrontendClient } from "./client"
 import { getFlowFactory } from "./flow"
 import { getPublicUrl, toGetFlowParameter } from "./utils"
@@ -57,9 +56,7 @@ export async function getLoginFlow(
         initOverrides,
       ),
     FlowType.Login,
-    guessPotentiallyProxiedOrySdkUrl({
-      knownProxiedUrl: await getPublicUrl(),
-    }),
+    await getPublicUrl(),
     config.project.login_ui_url,
   )
 }
